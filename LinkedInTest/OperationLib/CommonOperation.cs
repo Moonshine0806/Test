@@ -22,8 +22,6 @@ namespace LinkedInTest.OperationLib
         {
             FindSpecificTypeElementByName(Session, ControlType.Button, "File Tab").Click();
             Thread.Sleep(1000);
-            // 1-1(因为是公共的，所以注意命名)
-            //Session.TakeScreenshot().SaveAsFile();
             return this;
         }
 
@@ -79,6 +77,11 @@ namespace LinkedInTest.OperationLib
         public CommonOperation<T> AddAuthor()
         {
 
+            return this;
+        }
+
+        public CommonOperation<T> ViewContact()
+        {
             return this;
         }
 

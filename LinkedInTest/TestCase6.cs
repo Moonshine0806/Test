@@ -1,14 +1,16 @@
-﻿using LinkedInTest.OperationLib;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using LinkedInTest.OperationLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LinkedInTest
 {
     [TestClass]
-    public class TestCase4
+    public class TestCase6
     {
-        // 1-1(因为是公共的，所以注意命名)
-        //Session.TakeScreenshot().SaveAsFile();
-        
         [TestMethod]
         public void WordPart()
         {
@@ -47,7 +49,7 @@ namespace LinkedInTest
         private static void CommonPart()
         {
             // Screen shot
-            Word.Open().OpenFileTab().AddAuthor();
+            PowerPoint.Open().OpenFileTab().AddAuthor();
             // Screen shot
         }
     }

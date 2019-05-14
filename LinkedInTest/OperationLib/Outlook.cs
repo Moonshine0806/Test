@@ -14,10 +14,13 @@ namespace LinkedInTest.OperationLib
             var o = new Outlook();
             // Open application
             return o;
+            // 父类如何返回子类的类型
         }
-        private new CommonOperation<OutlookFlag> AddAuthor()
-        {
-            throw new Exception("Outlook don't have this function, please change code");
-        }
+
+        //private new CommonOperation<OutlookFlag> AddAuthor()
+        //{
+        //    // 在父类中，如何判断调用类型
+        //    throw new Exception("Outlook don't have this function, please change code");
+        //}
     }
 }
