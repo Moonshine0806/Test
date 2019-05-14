@@ -25,13 +25,7 @@ namespace LinkedInTest
             return screenRecorder;
         }
 
-        public ScreenRecordStatus Status
-        {
-            get
-            {
-                return this._status;
-            }
-        }
+        public ScreenRecordStatus Status => this._status;
 
         public string Error => this._error;
 

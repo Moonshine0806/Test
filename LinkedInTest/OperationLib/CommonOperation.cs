@@ -6,7 +6,6 @@ using OpenQA.Selenium.Support.Extensions;
 
 namespace LinkedInTest.OperationLib
 {
-    // TODO 注意给 cwy 介绍这个基础设施
     internal struct ControlType
     {
         public const string Button = "ControlType.Button";
@@ -16,7 +15,8 @@ namespace LinkedInTest.OperationLib
 
     public abstract class CommonOperation<T>
     {
-        protected static WindowsDriver<WindowsElement> Session;
+        protected static readonly string WindowsApplicationDriverUrl = "http://127.0.0.1:4723";
+        public static WindowsDriver<WindowsElement> Session;
 
         public CommonOperation<T> OpenFileTab()
         {
@@ -36,6 +36,30 @@ namespace LinkedInTest.OperationLib
         {
             FindSpecificTypeElementByName(Session, ControlType.ListItem, "Options").Click();
             Thread.Sleep(1000);
+            return this;
+        }
+
+        public CommonOperation<T> CheckText()
+        {
+
+            return this;
+        }
+
+        public CommonOperation<T> CheckTip()
+        {
+
+            return this;
+        }
+
+        public CommonOperation<T> CheckLink1()
+        {
+
+            return this;
+        }
+
+        public CommonOperation<T> CheckLink2()
+        {
+
             return this;
         }
 
@@ -72,7 +96,6 @@ namespace LinkedInTest.OperationLib
             FindSpecificTypeElementByName(Session, ControlType.Button, "Cancel").Click();
             return this;
         }
-
 
         public CommonOperation<T> AddAuthor()
         {
@@ -115,6 +138,7 @@ namespace LinkedInTest.OperationLib
                 Session = null;
             }
         }
+
         public static WindowsElement FindSpecificTypeElementByName(WindowsDriver<WindowsElement> session, string type, string name)
         {
             var res = new List<WindowsElement>();

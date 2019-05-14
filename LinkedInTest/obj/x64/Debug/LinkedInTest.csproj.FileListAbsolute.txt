@@ -24,3 +24,4 @@ C:\Users\v-yifan\source\repos\LinkedInTest\bin\x64\Debug\ScreenRecorderLib.xml
 C:\Users\v-yifan\source\repos\LinkedInTest\obj\x64\Debug\LinkedInTest.csproj.CopyComplete
 C:\Users\v-yifan\source\repos\LinkedInTest\obj\x64\Debug\LinkedInTest.dll
 C:\Users\v-yifan\source\repos\LinkedInTest\obj\x64\Debug\LinkedInTest.pdb
+C:\Users\v-yifan\source\repos\LinkedInTest\obj\x64\Debug\LinkedInTest.csprojAssemblyReference.cache
