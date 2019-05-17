@@ -16,6 +16,7 @@ namespace LinkedInTest.OperationLib
         public const string CheckBox = "ControlType.CheckBox";
         public const string Group = "ControlType.Group";
         public const string Edit = "ControlType.Edit";
+        public const string Window = "ControlType.Window";
     }
 
     public abstract class CommonOperation<T>
@@ -31,7 +32,7 @@ namespace LinkedInTest.OperationLib
         public CommonOperation<T> OpenFileTab()
         {
             FindSpecificTypeElementByName(Session, ControlType.Button, "File Tab").Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
             return this;
         }
 
@@ -118,7 +119,8 @@ namespace LinkedInTest.OperationLib
         {
             FindSpecificTypeElementByName(Session, ControlType.Edit, "Add an author").Click();
             Session.Keyboard.SendKeys("v-yifan@microsoft.com");
-            Session.Keyboard.PressKey(Keys.Enter);
+            FindSpecificTypeElementByName(Session, ControlType.Group, "Info").Click();
+            //Session.Keyboard.PressKey(Keys.Enter);
 
             var position = FindSpecificTypeElementByName(Session, ControlType.Group, "Author").FindElementsByXPath("/Group/*")[2].Coordinates;
             Session.Mouse.DoubleClick(position);
@@ -151,57 +153,72 @@ namespace LinkedInTest.OperationLib
 
         protected CommonOperation() { }
 
-        //~CommonOperation()
-        //{
-        //    // 1. 手动触发析构
-        //    // 2. 实现 IDispose
-        //    // 3. Finalize 是什么鬼？
-        //    if (Session != null)
-        //    {
-        //        Session.Quit();
-        //        Session = null;
-        //    }
-        //}
+        ~CommonOperation()
+        {
+            // 1. 手动触发析构
+            // 2. 实现 IDispose
+            // 3. Finalize 是什么鬼？
+            Dispose();
+        }
 
         public void Dispose()
         {
-
+            if (Session != null)
+            {
+                FindSpecificTypeElementByName(Session, ControlType.Button, "Close").Click();
+                Session.Quit();
+                Session = null;
+            }
         }
 
         public static WindowsElement FindSpecificTypeElementByName(WindowsDriver<WindowsElement> session, string type, string name)
         {
-            var res = new List<WindowsElement>();
-            
-            foreach (var e in session.FindElementsByName(name))
-            {
-                if (e.TagName == type)
-                {
-                    res.Add(e);
-                }
-            }
+            var r = session.FindElementByName(name);
+            //if (r.TagName == type)
+            //{
+            return r;
+            //}
 
-            if (res.Count == 0)
-            {
-                throw new ArgumentException("Can't find the element which meet the requirement, please recheck args");
-            }
-            else if (res.Count != 1)
-            {
-                throw new ArgumentException("Element which meet the requirement is not unique, please recheck args");
-            }
-            else
-            {
-                return res[0];
-            }
+            //throw new ArgumentException("Can't find the element which meet the requirement, please recheck args");
+
+
+            //var res = new List<WindowsElement>();
+
+            //foreach (var e in session.FindElementsByName(name))
+            //{
+            //    if (e.TagName == type)
+            //    {
+            //        res.Add(e);
+            //    }
+            //}
+
+            //if (res.Count == 0)
+            //{
+            //    throw new ArgumentException("Can't find the element which meet the requirement, please recheck args");
+            //}
+            //else if (res.Count != 1)
+            //{
+            //    throw new ArgumentException("Element which meet the requirement is not unique, please recheck args");
+            //}
+            //else
+            //{
+            //    return res[0];
+            //}
         }
 
-        protected static void OpenHelper(string appId)
+        protected static void OpenHelper(string appId, Func<WindowsElement> findHomePage)
         {
             var appCapability = new DesiredCapabilities();
             appCapability.SetCapability("app", appId);
             appCapability.SetCapability("deviceName", "WindowsPC");
-            Session = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appCapability);
-            Assert.IsNotNull(Session);
-            Session.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(1.5));
+            var startupPageSession = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appCapability);
+            Assert.IsNotNull(startupPageSession);
+            //Session.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(3));
+            Thread.Sleep(9000);
+
+            //var home = DesktopSession().FindElementByName("Excel");
+            var home = findHomePage();
+            Session = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), MakeCapabilities(home));
             Session.Manage().Window.Maximize();
         }
 
@@ -212,5 +229,17 @@ namespace LinkedInTest.OperationLib
             
             return new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), desktopCapabilities);
         }
+
+        protected static DesiredCapabilities MakeCapabilities(WindowsElement appElement)
+        {
+            var handle = appElement.GetAttribute("NativeWindowHandle");
+            handle = (int.Parse(handle)).ToString("x"); // Convert to Hex
+            var capabilities = new DesiredCapabilities();
+            capabilities.SetCapability("appTopLevelWindow", handle);
+
+            return capabilities;
+        }
+
+        // TODO 封装一些像 Mita 里面那样的子孙函数来用
     }
 }

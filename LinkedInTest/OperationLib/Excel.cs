@@ -12,7 +12,7 @@ namespace LinkedInTest.OperationLib
         public static Excel Open()
         {
             const string excelAppId = "EXCEL.EXE";
-            OpenHelper(excelAppId);
+            OpenHelper(excelAppId, () => FindSpecificTypeElementByName(DesktopSession(), ControlType.Window, "Excel"));
             FindSpecificTypeElementByName(Session, ControlType.ListItem, "Blank workbook").Click();
 
             return new Excel();

@@ -45,6 +45,7 @@ namespace LinkedInTest.Util
                 throw;
             }
 
+            // TODO because it's in dll, below code maybe need to change
             Recorder = ScreenRecorder.CreateRecorder(LogFolder + @"\" + "TestRecord.mp4");
             AppDomain.CurrentDomain.ProcessExit += Log_Dtor;
         }

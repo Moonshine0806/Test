@@ -1,47 +1,38 @@
-﻿using System.Reflection;
-using LinkedInTest.OperationLib;
-using LinkedInTest.Util;
+﻿using LinkedInTest.OperationLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Reflection;
 
 namespace LinkedInTest
 {
     [TestClass]
     public class TestCase4
     {
-        private static CommonOperation<T> CommonPart<T>(CommonOperation<T> openedApp, MethodBase method)
-        {
-            var g = new ImageNameGenerator(method);
-            void Shot() => Word.Session.ShotScreen(g.Gen());
-
-            var res = openedApp.OpenFileTab().ViewOption().UncheckedLinkedInOption().ExecuteExternalAction(Shot).ClickOkButton();
-            // TODO When the app is same, maybe occur conflict
-            Word.Open().OpenFileTab().AddAuthor();
-
-            return res; // maybe should not return value
-        }
+        private static readonly Func<CommonOperation<WordFlag>> OpenWordForCheck = Word.Open;
+        private static readonly Func<MethodBase> CatchCurrentMethod = MethodBase.GetCurrentMethod;
 
         [TestMethod]
         public void WordPart()
         {
-            CommonPart(Word.Open(), MethodBase.GetCurrentMethod());
+            WordExcelPptCommon.WordPart(OpenWordForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]
         public void ExcelPart()
         {
-            CommonPart(Excel.Open(), MethodBase.GetCurrentMethod());
+            WordExcelPptCommon.ExcelPart(OpenWordForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]
         public void PowerPointPart()
         {
-            CommonPart(PowerPoint.Open(), MethodBase.GetCurrentMethod());
+            WordExcelPptCommon.PowerPointPart(OpenWordForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]
         public void OutlookPart()
         {
-            CommonPart(Outlook.Open(), MethodBase.GetCurrentMethod());
+            WordExcelPptCommon.OutlookPart(OpenWordForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]

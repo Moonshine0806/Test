@@ -59,14 +59,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LinkedInProfileCommon.cs" />
+    <Compile Include="ProfileCommon.cs" />
     <Compile Include="OperationLib\CommonOperation.cs" />
     <Compile Include="OperationLib\Excel.cs" />
     <Compile Include="OperationLib\Outlook.cs" />
     <Compile Include="OperationLib\PowerPoint.cs" />
     <Compile Include="OperationLib\Word.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScreenRecorder.cs" />
+    <Compile Include="Util\ScreenRecorder.cs" />
     <Compile Include="TestCase4.cs" />
     <Compile Include="TestCase5.cs" />
     <Compile Include="TestCase6.cs" />
