@@ -59,6 +59,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="LinkedInProfileCommon.cs" />
     <Compile Include="OperationLib\CommonOperation.cs" />
     <Compile Include="OperationLib\Excel.cs" />
     <Compile Include="OperationLib\Outlook.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="TestCase6.cs" />
     <Compile Include="TestCase7.cs" />
     <Compile Include="TestCase8.cs" />
+    <Compile Include="Util\ImageNameGenerator.cs" />
     <Compile Include="Util\Log.cs" />
   </ItemGroup>
   <ItemGroup>

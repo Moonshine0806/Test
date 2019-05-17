@@ -1,4 +1,6 @@
-﻿using LinkedInTest.OperationLib;
+﻿using System.Reflection;
+using LinkedInTest.OperationLib;
+using LinkedInTest.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LinkedInTest
@@ -6,49 +8,46 @@ namespace LinkedInTest
     [TestClass]
     public class TestCase4
     {
-        // 1-1(因为是公共的，所以注意命名)
-        //Session.TakeScreenshot().SaveAsFile();
-        
+        private static CommonOperation<T> CommonPart<T>(CommonOperation<T> openedApp, MethodBase method)
+        {
+            var g = new ImageNameGenerator(method);
+            void Shot() => Word.Session.ShotScreen(g.Gen());
+
+            var res = openedApp.OpenFileTab().ViewOption().UncheckedLinkedInOption().ExecuteExternalAction(Shot).ClickOkButton();
+            // TODO When the app is same, maybe occur conflict
+            Word.Open().OpenFileTab().AddAuthor();
+
+            return res; // maybe should not return value
+        }
+
         [TestMethod]
         public void WordPart()
         {
-            Word.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            CommonPart(Word.Open(), MethodBase.GetCurrentMethod());
         }
 
         [TestMethod]
         public void ExcelPart()
         {
-            Excel.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            CommonPart(Excel.Open(), MethodBase.GetCurrentMethod());
         }
 
         [TestMethod]
         public void PowerPointPart()
         {
-            PowerPoint.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            CommonPart(PowerPoint.Open(), MethodBase.GetCurrentMethod());
         }
 
         [TestMethod]
         public void OutlookPart()
         {
-            Outlook.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            CommonPart(Outlook.Open(), MethodBase.GetCurrentMethod());
         }
 
         [TestMethod]
         public void PolicyPart()
         {
             // TODO wait to complete
-            CommonPart();
-        }
-
-        private static void CommonPart()
-        {
-            // Screen shot
-            Word.Open().OpenFileTab().AddAuthor();
-            // Screen shot
         }
     }
 }

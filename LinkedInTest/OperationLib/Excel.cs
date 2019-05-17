@@ -11,9 +11,11 @@ namespace LinkedInTest.OperationLib
     {
         public static Excel Open()
         {
-            var e = new Excel();
-            // Open application
-            return e;
+            const string excelAppId = "EXCEL.EXE";
+            OpenHelper(excelAppId);
+            FindSpecificTypeElementByName(Session, ControlType.ListItem, "Blank workbook").Click();
+
+            return new Excel();
         }
     }
 }

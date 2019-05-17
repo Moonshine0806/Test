@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Remote;
 
 namespace LinkedInTest.OperationLib
 {
@@ -11,9 +14,12 @@ namespace LinkedInTest.OperationLib
     {
         public static Word Open()
         {
-            var w = new Word();
-            // Open application
-            return w;
+            const string wordAppId = "WINWORD.EXE";
+            OpenHelper(wordAppId);
+            FindSpecificTypeElementByName(Session, ControlType.ListItem, "Blank document").Click();
+            Session.Quit();
+
+            return new Word();
         }
     }
 }

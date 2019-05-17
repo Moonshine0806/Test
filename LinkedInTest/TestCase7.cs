@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using LinkedInTest.OperationLib;
+using LinkedInTest.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LinkedInTest
@@ -14,6 +16,9 @@ namespace LinkedInTest
         [TestMethod]
         public void WordPart()
         {
+            var g = new ImageNameGenerator(MethodBase.GetCurrentMethod());
+            void Shot() => Word.Session.ShotScreen(g.Gen());
+
             Word.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
             CommonPart();
         }
@@ -49,7 +54,7 @@ namespace LinkedInTest
         private static void CommonPart()
         {
             // Screen shot
-            Outlook.Open().OpenFileTab()/*.ViewContact()*/;
+            Outlook.Open().OpenFileTab().ViewContact();
             // Screen shot
         }
     }

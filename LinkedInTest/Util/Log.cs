@@ -49,14 +49,6 @@ namespace LinkedInTest.Util
             AppDomain.CurrentDomain.ProcessExit += Log_Dtor;
         }
 
-        public static string GenerateImageName(MethodBase currentMethod, ref int num)
-        {
-            var TCNumber = currentMethod.DeclaringType.Name.Last(); // no need to try-catch
-            var methodName = currentMethod.Name;
-            var appName = methodName.Substring(0, methodName.Length - 4);
-            return new StringBuilder("TC" + TCNumber + appName + "S" + num++).ToString();
-        }
-
         public static void ShotScreen(this WindowsDriver<WindowsElement> session, string fileName)
         {
             session.TakeScreenshot().SaveAsFile(Path.Combine(LogFolder, fileName), ImageFormat.Png);

@@ -11,9 +11,11 @@ namespace LinkedInTest.OperationLib
     {
         public static PowerPoint Open()
         {
-            var p = new PowerPoint();
-            // Open application
-            return p;
+            const string pptAppId = "POWERPNT.EXE";
+            OpenHelper(pptAppId);
+            FindSpecificTypeElementByName(Session, ControlType.ListItem, "Blank Presentation").Click();
+
+            return new PowerPoint();
         }
     }
 }
