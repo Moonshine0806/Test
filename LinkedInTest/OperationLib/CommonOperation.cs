@@ -16,6 +16,7 @@ namespace LinkedInTest.OperationLib
         public const string CheckBox = "ControlType.CheckBox";
         public const string Group = "ControlType.Group";
         public const string Edit = "ControlType.Edit";
+        public const string TabItem = "ControlType.TabItem";
     }
 
     public abstract class CommonOperation<T>
@@ -26,6 +27,32 @@ namespace LinkedInTest.OperationLib
         public WindowsDriver<WindowsElement> GetSession()
         {
             return Session;
+        }
+        
+        //case1,2,3
+        public CommonOperation<T> ResumeAssistant()
+        {
+            FindSpecificTypeElementByName(Session, ControlType.Button, "CV Assistant").Click();
+            return this;
+        }
+
+        public CommonOperation<T> Close()
+        {
+            FindSpecificTypeElementByName(Session, ControlType.Button, "Close").Click();
+            return this;
+        }
+
+
+        public CommonOperation<T> NewBluegreyResume()
+        {
+            FindSpecificTypeElementByName(Session, ControlType.ListItem, "New").Click();
+            Thread.Sleep(1000);
+            FindSpecificTypeElementByName(Session, ControlType.ListItem, "Blue grey resume").Click();
+            Thread.Sleep(1000);
+            FindSpecificTypeElementByName(Session, ControlType.Button, "Create").Click();
+            Thread.Sleep(3000);
+            FindSpecificTypeElementByName(Session, ControlType.TabItem, "Review").Click();
+            return this;
         }
 
         public CommonOperation<T> OpenFileTab()
