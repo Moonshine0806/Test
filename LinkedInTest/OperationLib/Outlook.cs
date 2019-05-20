@@ -12,8 +12,8 @@ namespace LinkedInTest.OperationLib
     {
         public static Outlook Open()
         {
-            const string excelAppId = "OUTLOOK.EXE";
-            OpenHelper(excelAppId);
+            const string outlookAppId = "OUTLOOK.EXE";
+            OpenHelper(outlookAppId, () => DesktopSession().FindElementByClassName("rctrl_renwnd32"));
 
             return new Outlook();
             // 父类如何返回子类的类型

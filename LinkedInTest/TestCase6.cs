@@ -1,6 +1,6 @@
 ﻿using LinkedInTest.OperationLib;
-using LinkedInTest.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Reflection;
 
 namespace LinkedInTest
@@ -8,49 +8,37 @@ namespace LinkedInTest
     [TestClass]
     public class TestCase6
     {
+        private static readonly Func<CommonOperation<PowerPointFlag>> OpenPowerPointForCheck = PowerPoint.Open;
+        private static readonly Func<MethodBase> CatchCurrentMethod = MethodBase.GetCurrentMethod;
+
         [TestMethod]
         public void WordPart()
         {
-            var g = new ImageNameGenerator(MethodBase.GetCurrentMethod());
-            void Shot() => Word.Session.ShotScreen(g.Gen());
-
-            Word.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            WordExcelPptCommon.WordPart(OpenPowerPointForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]
         public void ExcelPart()
         {
-            Excel.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            WordExcelPptCommon.ExcelPart(OpenPowerPointForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]
         public void PowerPointPart()
         {
-            PowerPoint.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            WordExcelPptCommon.PowerPointPart(OpenPowerPointForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]
         public void OutlookPart()
         {
-            Outlook.Open().OpenFileTab().ViewOption().UncheckedLinkedInOption().ClickOkButton();
-            CommonPart();
+            WordExcelPptCommon.OutlookPart(OpenPowerPointForCheck, CatchCurrentMethod());
         }
 
         [TestMethod]
         public void PolicyPart()
         {
             // TODO wait to complete
-            CommonPart();
-        }
-
-        private static void CommonPart()
-        {
-            // Screen shot
-            PowerPoint.Open().OpenFileTab().AddAuthor();
-            // Screen shot
         }
     }
 }

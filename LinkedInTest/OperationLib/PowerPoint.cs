@@ -12,7 +12,7 @@ namespace LinkedInTest.OperationLib
         public static PowerPoint Open()
         {
             const string pptAppId = "POWERPNT.EXE";
-            OpenHelper(pptAppId);
+            OpenHelper(pptAppId, () => FindSpecificTypeElementByName(DesktopSession(), ControlType.Window, "PowerPoint"));
             FindSpecificTypeElementByName(Session, ControlType.ListItem, "Blank Presentation").Click();
 
             return new PowerPoint();

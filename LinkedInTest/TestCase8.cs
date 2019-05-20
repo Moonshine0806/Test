@@ -1,14 +1,16 @@
 ﻿using LinkedInTest.OperationLib;
 using LinkedInTest.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Reflection;
-using static LinkedInTest.Util.Log;
 
 namespace LinkedInTest
 {
     [TestClass]
     public class TestCase8
     {
+        private static readonly Func<MethodBase> CatchCurrentMethod = MethodBase.GetCurrentMethod;
+
         private static CommonOperation<T> CommonPart<T>(CommonOperation<T> openedApp, MethodBase method)
         {
             var g = new ImageNameGenerator(method);
@@ -23,25 +25,25 @@ namespace LinkedInTest
         [TestMethod]
         public void WordPart()
         {
-            CommonPart(Word.Open(), MethodBase.GetCurrentMethod());
+            CommonPart(Word.Open(), CatchCurrentMethod());
         }
 
         [TestMethod]
         public void ExcelPart()
         {
-            CommonPart(Excel.Open(), MethodBase.GetCurrentMethod());
+            CommonPart(Excel.Open(), CatchCurrentMethod());
         }
 
         [TestMethod]
         public void PowerPointPart()
         {
-            CommonPart(PowerPoint.Open(), MethodBase.GetCurrentMethod());
+            CommonPart(PowerPoint.Open(), CatchCurrentMethod());
         }
 
         [TestMethod]
         public void OutlookPart()
         {
-            CommonPart(Outlook.Open(), MethodBase.GetCurrentMethod());
+            CommonPart(Outlook.Open(), CatchCurrentMethod());
         }
     }
 }
